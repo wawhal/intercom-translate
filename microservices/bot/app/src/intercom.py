@@ -6,10 +6,6 @@ accessToken = os.environ['ACCESS_TOKEN']
 adminId = os.environ['ADMIN_ID']
 
 
-def buildNote(message, lang, translation):
-    response = "Original Message: "+message+ "\nLanguage Code: "+lang+"\nTranslation: " + translation + "\n\n To reply in the same language, please add a note of the format '/translate language_code sentence'\nExample: /translate fr How can I help you?"
-    return response
-
 
 def sendNote(convId, message):
     url = "https://api.intercom.io/conversations/" + convId + "/reply"
@@ -50,3 +46,8 @@ def sendMessage(convId, message):
     print ("Send Message Responce: ")
     print (respObj)
     print ("==========================================================================")
+
+
+def buildNote(message, lang, translation):
+    response = "Original Message: "+message+ "\nLanguage Code: "+lang+"\nTranslation: " + translation + "\n\n To reply in the same language, please add a note of the format '/translate language_code sentence'\nExample: /translate fr How can I help you?"
+    return response

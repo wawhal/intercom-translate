@@ -1,8 +1,0 @@
-- args:
-    sql: CREATE TABLE "intercom_messages"("conversation_id" bigint NOT NULL, "time"
-      bigint NOT NULL, "replied" boolean NOT NULL, PRIMARY KEY ("conversation_id")
-      )
-  type: run_sql
-- args:
-    name: intercom_messages
-  type: add_existing_table_or_view

@@ -1,0 +1,7 @@
+- args:
+    sql: CREATE TABLE "translate_mode"("conversation_id" bigint NOT NULL, "language"
+      text NOT NULL, PRIMARY KEY ("conversation_id") )
+  type: run_sql
+- args:
+    name: translate_mode
+  type: add_existing_table_or_view
