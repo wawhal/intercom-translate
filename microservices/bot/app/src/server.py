@@ -1,12 +1,13 @@
 from src import app
 from flask import jsonify, request
+
+from . import intercom
+
 import requests
 import json
 import os
 import re
 
-adminId = os.environ['ADMIN_ID']
-accessToken = os.environ['ACCESS_TOKEN']
 translateApiKey = os.environ['TRANSLATE_API_KEY']
 
 
@@ -34,7 +35,7 @@ def bot():
         lang = translationObj["detectedSourceLanguage"]
         if (lang != "en"):
             response = buildNote(msgBody[3:-5], lang, translation)
-            sendNote(convId, response)
+            intercom.sendNote(convId, response)
 
     if (topic == "conversation.user.created"):
         msgBody = input["data"]["item"]["conversation_message"]["body"]
@@ -43,7 +44,7 @@ def bot():
         lang = translationObj["detectedSourceLanguage"]
         if (lang != "en"):
             response = buildNote(msgBody[3:-5], lang, translation)
-            sendNote (convId, response)
+            intercom.sendNote (convId, response)
 
 
     if (topic == "conversation.admin.noted"):
@@ -56,7 +57,7 @@ def bot():
         if (match.group(1) == '/translate'):
             translationObj = translate(match.group(2), match.group(3))
             translation = translationObj["translatedText"]
-            sendMessage(convId, translation)
+            intercom.sendMessage(convId, translation)
     return "OK"
 
 
@@ -75,47 +76,3 @@ def translate(lang, text):
     translationObj = respObj["data"]["translations"][0]
     return translationObj
 
-def buildNote(message, lang, translation):
-    response = "Original Message: "+message+ "\nLanguage Code: "+lang+"\nTranslation: " + translation + "\n\n To reply in the same language, please add a note of the format '/translate language_code sentence'\nExample: /translate fr How can I help you?"
-    return response
-
-
-def sendNote(convId, message):
-    url = "https://api.intercom.io/conversations/" + convId + "/reply"
-    bearer = "Bearer " + accessToken
-    headers = {
-        "Authorization": bearer,
-        "Content-type": "application/json",
-        "Accept": "application/json"
-    }
-    payload = {
-        "body": message ,
-        "type": "admin",
-        "admin_id": adminId,
-        "message_type": "note"
-    }
-    r = requests.post(url, data=json.dumps(payload), headers=headers)
-    respObj = r.json()
-    print ("Send Note Responce: ")
-    print (respObj)
-    print ("==========================================================================")
-
-def sendMessage(convId, message):
-    url = "https://api.intercom.io/conversations/" + convId + "/reply"
-    bearer = "Bearer " + accessToken
-    headers = {
-        "Authorization": bearer,
-        "Content-type": "application/json",
-        "Accept": "application/json"
-    }
-    payload = {
-        "body": message ,
-        "type": "admin",
-        "admin_id": adminId,
-        "message_type": "open"
-    }
-    r = requests.post(url, data=json.dumps(payload), headers=headers)
-    respObj = r.json()
-    print ("Send Message Responce: ")
-    print (respObj)
-    print ("==========================================================================")
