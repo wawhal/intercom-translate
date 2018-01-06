@@ -2,7 +2,7 @@
 
 ## What is it?
 
-Intercom is a customer support platform that allows businesses to chat with prospective and existing customers within their app, on their website, through social media, or via email.
+iIntercom is a customer support platform that allows businesses to chat with prospective and existing customers within their app, on their website, through social media, or via email.
 
 As awesome as intercom is, every company almost always faces the problem of supporting customers worldwide due to the language barrier. Solving this problem is this webhook that receives message in any language, and replies back in the same language.
 
