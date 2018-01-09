@@ -5,7 +5,7 @@ dataUrl = 'http://data.hasura/v1/query'
 
 headers = {
     'X-Hasura-Role': 'admin',
-    'X-Hasura-User-Id': 1,
+    'X-Hasura-User-Id': "1",
     'Content-Type': 'application/json'
 }
 
