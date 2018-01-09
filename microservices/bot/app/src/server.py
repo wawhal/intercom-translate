@@ -32,6 +32,7 @@ def bot():
         for msg in msgArray:
             msgBody = msgBody + msg["body"] + " "
         respObj= googleTranslate.translate("en", msgBody[3:-5])
+        print (respObj)
         translationObj = respObj["data"]["translations"][0]
         translation = translationObj["translatedText"]
         lang = translationObj["detectedSourceLanguage"]
@@ -42,6 +43,7 @@ def bot():
     if (topic == "conversation.user.created"):
         msgBody = input["data"]["item"]["conversation_message"]["body"]
         respObj= googleTranslate.translate("en", msgBody[3:-5])
+        print (respObj)
         translationObj = respObj["data"]["translations"][0]
         translation = translationObj["translatedText"]
         lang = translationObj["detectedSourceLanguage"]

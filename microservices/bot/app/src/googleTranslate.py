@@ -2,6 +2,7 @@ import requests
 import json
 import os
 
+from . import intercom
 
 translateApiKey = os.environ['TRANSLATE_API_KEY']
 
@@ -18,5 +19,4 @@ def translate(lang, text):
     print ("Translate Response: ")
     print (respObj)
     print ("==========================================================================")
-    translationObj = respObj["data"]["translations"][0]
-    return translationObj
+    return respObj
