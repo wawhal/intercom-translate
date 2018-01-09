@@ -69,7 +69,6 @@ def bot():
             if (langMode != 'none'):
                 translationObj = googleTranslate.translate(langMode, text)
                 translation = translationObj["translatedText"]
-
                 intercom.sendMessage(convId, translation)
 
     return "OK"
