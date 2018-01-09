@@ -46,7 +46,9 @@ def turnOffTranslate(convId):
     respObj = r.json()
 
 def updateLanguageMode(convId, lang):
-    sqlString =  "INSERT INTO translate_mode (conversation_id, language) VALUES ({cId}, {l}) ON CONFLICT (conversation_id) DO UPDATE SET language = {l}".format(cId = str(convId), l = lang)
+    sqlString =  "INSERT INTO translate_mode (conversation_id, language) VALUES ({cId}, '{l}') ON CONFLICT (conversation_id) DO UPDATE SET language = '{l}'".format(cId = str(convId), l = lang)
+    print ("SQLString")
+    print (sqlString)
     payload = {
         "type": "run_sql",
         "args": {
