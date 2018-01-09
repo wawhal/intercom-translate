@@ -2,7 +2,7 @@
 
 ## What is it?
 
-iIntercom is a customer support platform that allows businesses to chat with prospective and existing customers within their app, on their website, through social media, or via email.
+Intercom is a customer support platform that allows businesses to chat with prospective and existing customers within their app, on their website, through social media, or via email.
 
 As awesome as intercom is, every company almost always faces the problem of supporting customers worldwide due to the language barrier. Solving this problem is this webhook that receives message in any language, and replies back in the same language.
 
@@ -14,7 +14,8 @@ Lets consider a hypothetical situation where CompanyX is using Intercom and has 
 
 1. I write my query as "Comment utiliser votre produit" which means "How to use your product".
 2. The support team at CompanyX gets this message "Comment utiliser votre produit" and also an internal note which contains the translation i.e "How to use your product" and the language code i.e. "fr".
-3. Now the support team knows only english. So they write an internal note saying "/translate fr Please read our documentation" where `/translate` is the keyword for translating, `fr` is the language code and rest of it is the text to be translated.
+3. Now the support team knows only english. So they write an internal note saying "/translate fr" where `/translate` is the keyword for translating, `fr` is the language code.
+4. Once the translate mode is on, the support team writes an internal note saying "Please read our documentation."
 4. I will get a reply from the support team saying "Veuillez lire notre documentation".
 
 Smoothe. Isn't it?
@@ -22,8 +23,10 @@ Smoothe. Isn't it?
 ### Internal Implementation
 
 1. When the user sends a message, it is sent to the webhook by intercom.
-2. The webhook translates the message to English using the Google Translation API and writes it as an internal note to the team. (No action is taken if the source language is English in first place)
-3. Now when the the team member writes an internal note using `/translate <language-code> Message`, this note is again sent to the webhook and the webhook translates and sends it back to the user.
+2. The webhook translates the message to English using the Google Translation API and writes it as an internal note to the team. (No action is taken if the source language is English)
+3. Now when the the team member writes an internal note using `/translate <language-code>`, the conversation ID and the language code is stored in the database.
+4. Now when a team member writes an internal note in a conversation, if there is a language code associated with that conversation in the database, it is translated to that lanuage and sent to the user.
+5. When the team member types `/translate off`, the entry is deleted from the database.
 
 ## What does it use?
 

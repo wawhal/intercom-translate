@@ -2,8 +2,7 @@ description: An intercom webhook to integrate the Google translate API with an i
   workspace
 keywords: intercom, webhook, bot, chatbot
 media:
-  images:
-  - https://github.com/wawhal/intercom-translate/raw/master/assets/intercom-translate-client.png
-  - https://github.com/wawhal/intercom-translate/raw/master/assets/intercom-translate-support.png
+  videos:
+  - https://www.youtube.com/embed/zSVp9-53aqY
 name: intercom-translate
 platformVersion: v0.15.3
