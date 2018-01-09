@@ -59,6 +59,8 @@ def bot():
         if (match and match.group(1) == '/translate'):
             if (match.group(2) == 'off'):
                 data.turnOffTranslate(convId)
+                infoNote = "You are out of translate mode. Type '/translate language_code' to start translate mode again."
+                intercom.sendNote(convId, infoNote)
             else:
                 data.updateLanguageMode(convId, match.group(2))
                 infoNote = "You are in language mode '" + match.group(2) + "'.Please make an internal note saying '/translate off' to turn it off."
