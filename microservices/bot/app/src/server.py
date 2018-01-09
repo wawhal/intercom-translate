@@ -74,7 +74,7 @@ def bot():
         else:
             if (langMode != 'none'):
                 respObj = googleTranslate.translate(langMode, text)
-                if (translationObj["error"]):
+                if (respObj["error"]):
                     intercom.sendNote(convId, "Invalid Language code. Please set it again.")
                     return "ok"
                 translationObj = respObj["data"]["translations"][0]
