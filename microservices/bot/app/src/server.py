@@ -49,7 +49,8 @@ def bot():
 
 
     if (topic == "conversation.admin.noted"):
-        if (input["data"]["item"]["conversation_parts"]["conversation_parts"][0]["author"]["id"] == adminId)
+        if (input["data"]["item"]["conversation_parts"]["conversation_parts"][0]["author"]["id"] == adminId):
+            return "Ok"
         msgArray = input["data"]["item"]["conversation_parts"]["conversation_parts"]
         for msg in msgArray:
             msgBody = msgBody + msg["body"] + " "
