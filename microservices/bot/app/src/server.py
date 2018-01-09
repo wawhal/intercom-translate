@@ -35,7 +35,7 @@ def bot():
         translation = translationObj["translatedText"]
         lang = translationObj["detectedSourceLanguage"]
         if (lang != "en"):
-            response = buildNote(msgBody[3:-5], lang, translation)
+            response = intercom.buildNote(msgBody[3:-5], lang, translation)
             intercom.sendNote(convId, response)
 
     if (topic == "conversation.user.created"):
@@ -44,7 +44,7 @@ def bot():
         translation = translationObj["translatedText"]
         lang = translationObj["detectedSourceLanguage"]
         if (lang != "en"):
-            response = buildNote(msgBody[3:-5], lang, translation)
+            response = intercom.buildNote(msgBody[3:-5], lang, translation)
             intercom.sendNote (convId, response)
 
 
