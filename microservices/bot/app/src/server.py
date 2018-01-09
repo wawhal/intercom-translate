@@ -31,7 +31,7 @@ def bot():
         msgArray = input["data"]["item"]["conversation_parts"]["conversation_parts"]
         for msg in msgArray:
             msgBody = msgBody + msg["body"] + " "
-        respobj= googleTranslate.translate("en", msgBody[3:-5])
+        respObj= googleTranslate.translate("en", msgBody[3:-5])
         translationObj = respObj["data"]["translation"][0]
         translation = translationObj["translatedText"]
         lang = translationObj["detectedSourceLanguage"]
@@ -41,7 +41,7 @@ def bot():
 
     if (topic == "conversation.user.created"):
         msgBody = input["data"]["item"]["conversation_message"]["body"]
-        respobj= googleTranslate.translate("en", msgBody[3:-5])
+        respObj= googleTranslate.translate("en", msgBody[3:-5])
         translationObj = respObj["data"]["translation"][0]
         translation = translationObj["translatedText"]
         lang = translationObj["detectedSourceLanguage"]
