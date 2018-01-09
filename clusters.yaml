@@ -3,5 +3,5 @@
     configmap: controller-conf
     namespace: hasura
   data: null
-  kubeContext: buns47
-  name: buns47
+  kubeContext: chiefdom29
+  name: chiefdom29

@@ -2,13 +2,14 @@ from src import app
 from flask import jsonify, request
 
 from . import intercom
+from . import googleTranslate
+from . import data
 
 import requests
 import json
 import os
 import re
 
-translateApiKey = os.environ['TRANSLATE_API_KEY']
 
 
 @app.route("/")
@@ -30,7 +31,7 @@ def bot():
         msgArray = input["data"]["item"]["conversation_parts"]["conversation_parts"]
         for msg in msgArray:
             msgBody = msgBody + msg["body"] + " "
-        translationObj = translate("en", msgBody[3:-5])
+        translationObj = googleTranslate.translate("en", msgBody[3:-5])
         translation = translationObj["translatedText"]
         lang = translationObj["detectedSourceLanguage"]
         if (lang != "en"):
@@ -39,7 +40,7 @@ def bot():
 
     if (topic == "conversation.user.created"):
         msgBody = input["data"]["item"]["conversation_message"]["body"]
-        translationObj = translate("en", msgBody[3:-5])
+        translationObj = googleTranslate.translate("en", msgBody[3:-5])
         translation = translationObj["translatedText"]
         lang = translationObj["detectedSourceLanguage"]
         if (lang != "en"):
@@ -52,27 +53,20 @@ def bot():
         for msg in msgArray:
             msgBody = msgBody + msg["body"] + " "
         text = msgBody[3:-5]
-        regex = r"(\/translate)\ ([^\s]+)\ (.*)"
+        langMode = data.checkTranslateMode(convId)
+        regex = r"(\/translate)\ (.*)"
         match = re.search(regex, text)
-        if (match.group(1) == '/translate'):
-            translationObj = translate(match.group(2), match.group(3))
-            translation = translationObj["translatedText"]
-            intercom.sendMessage(convId, translation)
+        if (match and match.group(1) == '/translate'):
+            if (match.group(2) == 'off'):
+                data.turnOffTranslate(convId)
+            else:
+                data.updateLanguageMode(convId, match.group(2))
+        else:
+            if (langMode != 'none'):
+                translationObj = googleTranslate.translate(match.group(2), match.group(3))
+                translation = translationObj["translatedText"]
+                intercom.sendMessage(convId, translation)
+
     return "OK"
 
-
-def translate(lang, text):
-    translateUrl = "https://translation.googleapis.com/language/translate/v2?key="+translateApiKey
-    payload = {
-        "q": text,
-        "target": lang
-    }
-
-    r = requests.post(url=translateUrl, data=json.dumps(payload))
-    respObj = r.json()
-    print ("Translate Response: ")
-    print (respObj)
-    print ("==========================================================================")
-    translationObj = respObj["data"]["translations"][0]
-    return translationObj
 
