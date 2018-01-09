@@ -31,7 +31,8 @@ def bot():
         msgArray = input["data"]["item"]["conversation_parts"]["conversation_parts"]
         for msg in msgArray:
             msgBody = msgBody + msg["body"] + " "
-        translationObj = googleTranslate.translate("en", msgBody[3:-5])
+        respobj= googleTranslate.translate("en", msgBody[3:-5])
+        translationObj = respObj["data"]["translation"][0]
         translation = translationObj["translatedText"]
         lang = translationObj["detectedSourceLanguage"]
         if (lang != "en"):
@@ -40,7 +41,8 @@ def bot():
 
     if (topic == "conversation.user.created"):
         msgBody = input["data"]["item"]["conversation_message"]["body"]
-        translationObj = googleTranslate.translate("en", msgBody[3:-5])
+        respobj= googleTranslate.translate("en", msgBody[3:-5])
+        translationObj = respObj["data"]["translation"][0]
         translation = translationObj["translatedText"]
         lang = translationObj["detectedSourceLanguage"]
         if (lang != "en"):
@@ -69,11 +71,11 @@ def bot():
                 intercom.sendNote(convId, infoNote)
         else:
             if (langMode != 'none'):
-                translationObj = googleTranslate.translate(langMode, text)
-                print (translationObj["error"])
+                respObj = googleTranslate.translate(langMode, text)
                 if (translationObj["error"]):
                     intercom.sendNote(convId, "Invalid Language code. Please set it again.")
                     return "ok"
+                translationObj = respObj["data"]["translations"][0]
                 translation = translationObj["translatedText"]
 
                 intercom.sendMessage(convId, translation)
