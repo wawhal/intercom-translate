@@ -54,7 +54,7 @@ def bot():
             msgBody = msgBody + msg["body"] + " "
         text = msgBody[3:-5]
         langMode = data.checkTranslateMode(convId)
-        regex = r"(\/translate)\ (.*)"
+        regex = r"(\^/translate)\ (.*)"
         match = re.search(regex, text)
         if (match and match.group(1) == '/translate'):
             if (match.group(2) == 'off'):
