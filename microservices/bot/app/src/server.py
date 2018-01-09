@@ -65,7 +65,7 @@ def bot():
                 intercom.sendNote(convId, infoNote)
         else:
             if (langMode != 'none'):
-                translationObj = googleTranslate.translate(match.group(2), match.group(3))
+                translationObj = googleTranslate.translate(langMode, text)
                 translation = translationObj["translatedText"]
                 intercom.sendMessage(convId, translation)
 
