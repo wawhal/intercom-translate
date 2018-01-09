@@ -10,7 +10,7 @@ import json
 import os
 import re
 
-
+adminId = os.environ['ADMIN_ID']
 
 @app.route("/")
 def main():
@@ -49,6 +49,7 @@ def bot():
 
 
     if (topic == "conversation.admin.noted"):
+        if (input["data"]["item"]["conversation_parts"]["conversation_parts"][0]["author"]["id"] == adminId)
         msgArray = input["data"]["item"]["conversation_parts"]["conversation_parts"]
         for msg in msgArray:
             msgBody = msgBody + msg["body"] + " "
