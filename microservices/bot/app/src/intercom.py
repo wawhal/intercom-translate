@@ -49,5 +49,5 @@ def sendMessage(convId, message):
 
 
 def buildNote(message, lang, translation):
-    response = "Original Message: "+message+ "\nLanguage Code: "+lang+"\nTranslation: " + translation + "\n\n To reply in the same language, please add a note of the format '/translate language_code sentence'\nExample: /translate fr How can I help you?"
+    response = "Original Message: "+message+ "\nLanguage Code: "+lang+"\nTranslation: " + translation + "\n\n To start translate mode, make an internal note saying '/translate language_code '\nExample: /translate fr"
     return response
