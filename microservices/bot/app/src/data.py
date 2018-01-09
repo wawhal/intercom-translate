@@ -56,3 +56,5 @@ def updateLanguageMode(convId, lang):
 
     r = requests.post(url=dataUrl, headers=headers, data=json.dumps(payload))
     respObj = r.json()
+    print ("Update/Insert Response: ")
+    print (respObj)
