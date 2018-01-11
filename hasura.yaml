@@ -1,6 +1,6 @@
 description: An intercom webhook to integrate the Google translate API with an intercom
   workspace
-keywords: intercom, webhook, bot, chatbot
+keywords: intercom, webhook, bot, chatbot, translate, google translate, intercom-translate
 media:
   videos:
   - https://www.youtube.com/embed/zSVp9-53aqY

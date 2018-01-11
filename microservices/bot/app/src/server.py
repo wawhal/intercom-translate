@@ -58,7 +58,7 @@ def bot():
         msgArray = input["data"]["item"]["conversation_parts"]["conversation_parts"]
         for msg in msgArray:
             msgBody = msgBody + msg["body"] + " "
-        text = msgBody[3:-5]
+        text = msgBody[3:-5].strip()
         langMode = data.checkTranslateMode(convId)
         regex = r"^(\/translate)\ (.*)"
         match = re.search(regex, text)
